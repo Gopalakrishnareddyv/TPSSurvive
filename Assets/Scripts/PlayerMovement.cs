@@ -1,21 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float playerForwardSpeed;
     [SerializeField] float gravity;
+    [SerializeField] float jumpSpeed;
     [SerializeField] float playerRotateSpeed;
     Animator playerAnim;
     CharacterController character;
     [SerializeField] Transform firePoint;
     [SerializeField] Transform cameraPoint;
-    [SerializeField] GameObject bullet;
+    public static PlayerMovement instance;
+    public GameObject gun;
+    public GameObject gunText;
+    public bool isGun;
+    public int bulletCount;
+    public int ammo;
+    public Text ammoText;
+    //[SerializeField] GameObject bullet;
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
         playerAnim = GetComponentInChildren<Animator>();
         character = GetComponent<CharacterController>();
     }
@@ -43,20 +53,49 @@ public class PlayerMovement : MonoBehaviour
             transform.Rotate(Vector3.up, horizontal * playerRotateSpeed);
             character.SimpleMove(transform.forward * vertical * playerForwardSpeed  * Time.deltaTime);
         }
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.E))
         {
+            transform.position += new Vector3(0, jumpSpeed, 0);
+        }
+        if (Input.GetMouseButtonDown(0)&&isGun&&bulletCount>0)
+        {
+            bulletCount -= ammo;
+            ammoText.text = "Ammos : " + bulletCount;
             FireGun();   
         }
     }
     void FireGun()
     {
-        Debug.DrawRay(cameraPoint.position, cameraPoint.transform.forward*1000f, Color.red,2f);
+        Debug.DrawRay(cameraPoint.position, cameraPoint.transform.forward*100f, Color.red,2f);
         RaycastHit hit;
-        if(Physics.Raycast(cameraPoint.position,cameraPoint.transform.forward,out hit, Mathf.Infinity))
+        if(Physics.Raycast(cameraPoint.position,cameraPoint.transform.forward,out hit))
         {
             Debug.Log(hit.collider.gameObject.name);
-            //firePoint.LookAt(hit.point);
-            //Instantiate(bullet, firePoint.transform.position, Quaternion.identity);
+            if (hit.collider.gameObject.tag == "Enemy")
+            {
+                var enemyHealth = hit.collider.gameObject.GetComponent<EnemyHealth>();
+                if (enemyHealth != null)
+                {
+                    enemyHealth.EnemyDamage(1);
+                }
+            }
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Gun")
+        {
+            Destroy(other.gameObject);
+            gunText.SetActive(false);
+            gun.SetActive(true);
+            isGun = true;
+        }
+        if (other.gameObject.tag == "Ammo")
+        {
+            ammo = 50;
+            bulletCount = ammo;
+            ammoText.text="Ammos : "+ammo;
+            Destroy(other.gameObject);
         }
     }
 }
