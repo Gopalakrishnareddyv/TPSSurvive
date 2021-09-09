@@ -37,9 +37,17 @@ public class EnemyMovement : MonoBehaviour
         {
             navMesh.SetDestination(startingPoint);
         }
-        anim.SetFloat("EnemySpeed", navMesh.velocity.magnitude);
+        if (this.gameObject.tag == "Enemy")
+        {
+            anim.SetFloat("EnemySpeed", navMesh.velocity.magnitude);
+        }
+        else if(this.gameObject.tag=="Monstar")
+        {
+            anim.SetFloat("EnemyMonstar", navMesh.velocity.magnitude);
+        }
         if (Vector3.Distance(transform.position,PlayerMovement.instance.transform.position)<3)
         {
+            anim.SetFloat("EnemyMonstar", -1);
             var health = PlayerMovement.instance.GetComponent<PlayerHealth>();
             if (health != null)
             {

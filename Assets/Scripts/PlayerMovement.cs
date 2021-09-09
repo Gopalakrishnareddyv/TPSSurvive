@@ -22,14 +22,18 @@ public class PlayerMovement : MonoBehaviour
     public int bulletCount;
     public int ammo;
     public Text ammoText;
-    public ParticleSystem particleSystem;
+    public ParticleSystem partSystem;
     Vector3 hitPoint;
+    AudioSource audioSource;
+    public AudioClip bulletSound;
+    public AudioClip bulletHitSound;
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
         playerAnim = GetComponentInChildren<Animator>();
         character = GetComponent<CharacterController>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -61,8 +65,9 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0)&&isGun&&bulletCount>0)
         {
-            
-            particleSystem.Play();
+            audioSource.clip = bulletSound;
+            audioSource.Play();
+            partSystem.Play();
             bulletCount -= 1;
             ammoText.text = "Ammos : " + bulletCount;
             FireGun();   
@@ -75,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
         if(Physics.Raycast(cameraPoint.position,cameraPoint.transform.forward,out hit))
         {
             //Debug.Log(hit.collider.gameObject.name);
-            if (hit.collider.gameObject.tag == "Enemy")
+            if (hit.collider.gameObject.tag == "Enemy"||hit.collider.gameObject.tag=="Monstar")
             {
                
                 var enemyHealth = hit.collider.gameObject.GetComponent<EnemyHealth>();
@@ -86,7 +91,9 @@ public class PlayerMovement : MonoBehaviour
                 GameObject spawn = Pooling.instance.Get("Hit");
                 if (spawn != null)
                 {
-                    Debug.Log(hit.point);
+                    //Debug.Log(hit.point);
+                    audioSource.clip = bulletHitSound;
+                    audioSource.Play();
                     spawn.transform.position = hit.point;
                     spawn.SetActive(true);
                 }
@@ -112,6 +119,11 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.tag == "Death")
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        if (other.gameObject.tag == "EndPoint")
+        {
+            SceneManager.LoadScene(3);
+            Destroy(other.gameObject);
         }
     }
 }

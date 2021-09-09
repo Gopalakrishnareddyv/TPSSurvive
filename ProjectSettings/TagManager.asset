@@ -9,6 +9,8 @@ TagManager:
   - Gun
   - Death
   - Hit
+  - Monstar
+  - EndPoint
   layers:
   - Default
   - TransparentFX
