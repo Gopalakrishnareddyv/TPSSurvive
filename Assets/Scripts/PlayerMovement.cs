@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -21,7 +22,8 @@ public class PlayerMovement : MonoBehaviour
     public int bulletCount;
     public int ammo;
     public Text ammoText;
-    //[SerializeField] GameObject bullet;
+    public ParticleSystem particleSystem;
+    Vector3 hitPoint;
     // Start is called before the first frame update
     void Start()
     {
@@ -59,7 +61,9 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0)&&isGun&&bulletCount>0)
         {
-            bulletCount -= ammo;
+            
+            particleSystem.Play();
+            bulletCount -= 1;
             ammoText.text = "Ammos : " + bulletCount;
             FireGun();   
         }
@@ -70,13 +74,21 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit hit;
         if(Physics.Raycast(cameraPoint.position,cameraPoint.transform.forward,out hit))
         {
-            Debug.Log(hit.collider.gameObject.name);
+            //Debug.Log(hit.collider.gameObject.name);
             if (hit.collider.gameObject.tag == "Enemy")
             {
+               
                 var enemyHealth = hit.collider.gameObject.GetComponent<EnemyHealth>();
                 if (enemyHealth != null)
                 {
                     enemyHealth.EnemyDamage(1);
+                }
+                GameObject spawn = Pooling.instance.Get("Hit");
+                if (spawn != null)
+                {
+                    Debug.Log(hit.point);
+                    spawn.transform.position = hit.point;
+                    spawn.SetActive(true);
                 }
             }
         }
@@ -96,6 +108,10 @@ public class PlayerMovement : MonoBehaviour
             bulletCount = ammo;
             ammoText.text="Ammos : "+ammo;
             Destroy(other.gameObject);
+        }
+        if (other.gameObject.tag == "Death")
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }

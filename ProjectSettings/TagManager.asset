@@ -7,6 +7,8 @@ TagManager:
   - Ammo
   - Enemy
   - Gun
+  - Death
+  - Hit
   layers:
   - Default
   - TransparentFX
