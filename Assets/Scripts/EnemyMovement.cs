@@ -23,6 +23,7 @@ public class EnemyMovement : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, PlayerMovement.instance.transform.position) < chasingPoint)
         {
+            Debug.Log(Vector3.Distance(transform.position, PlayerMovement.instance.transform.position));
             isChasing = true;
         }
         else

@@ -122,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (other.gameObject.tag == "EndPoint")
         {
-            SceneManager.LoadScene(3);
+            SceneManager.LoadScene(2);
             Destroy(other.gameObject);
         }
     }

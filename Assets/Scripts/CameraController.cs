@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour
         float horizontal = Input.GetAxis("Mouse X") * rotateSpeed * Time.deltaTime;
         cineComposer.m_TrackedObjectOffset.y += vertical;
         cineComposer.m_TrackedObjectOffset.x += horizontal;
-        cineComposer.m_TrackedObjectOffset.y = Mathf.Clamp(cineComposer.m_TrackedObjectOffset.y,2f, 7f);
-        cineComposer.m_TrackedObjectOffset.x = Mathf.Clamp(cineComposer.m_TrackedObjectOffset.x, -4f, 4f);
+        cineComposer.m_TrackedObjectOffset.y = Mathf.Clamp(cineComposer.m_TrackedObjectOffset.y,100f, 100f);
+        cineComposer.m_TrackedObjectOffset.x = Mathf.Clamp(cineComposer.m_TrackedObjectOffset.x, -100f, 100f);
     }
 }
