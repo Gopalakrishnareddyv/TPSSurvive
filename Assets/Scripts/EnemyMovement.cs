@@ -49,6 +49,7 @@ public class EnemyMovement : MonoBehaviour
         if (Vector3.Distance(transform.position,PlayerMovement.instance.transform.position)<3)
         {
             anim.SetFloat("EnemyMonstar", -1);
+            anim.SetFloat("EnemySpeed", -1);
             var health = PlayerMovement.instance.GetComponent<PlayerHealth>();
             if (health != null)
             {

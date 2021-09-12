@@ -27,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     AudioSource audioSource;
     public AudioClip bulletSound;
     public AudioClip bulletHitSound;
+    float jumpTime=0f;
+    bool jump, doublejump;
     // Start is called before the first frame update
     void Start()
     {
@@ -59,9 +61,21 @@ public class PlayerMovement : MonoBehaviour
             transform.Rotate(Vector3.up, horizontal * playerRotateSpeed);
             character.SimpleMove(transform.forward * vertical * playerForwardSpeed  * Time.deltaTime);
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        transform.position += new Vector3(0, jumpSpeed, 0);
+        jumpTime += Time.deltaTime;
+        if (jumpTime >= 2f)
         {
+            jump = true;
+            if (jump)
+            {
+                doublejump = true;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.E)&&jump)
+        { 
             transform.position += new Vector3(0, jumpSpeed, 0);
+            jumpTime = 0f;
+            
         }
         if (Input.GetMouseButtonDown(0)&&isGun&&bulletCount>0)
         {
