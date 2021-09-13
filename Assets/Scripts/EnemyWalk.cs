@@ -22,7 +22,7 @@ public class EnemyWalk : MonoBehaviour
     public void SetLocation()
     {
         nav.SetDestination(goals[Random.Range(0, goals.Length)].transform.position);
-        anim.SetFloat("EnemySpeed", nav.velocity.magnitude);
+        anim.SetFloat("EnemySpeed", 1f);
     }
     // Update is called once per frame
     void Update()

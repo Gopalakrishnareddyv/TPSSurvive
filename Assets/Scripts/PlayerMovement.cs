@@ -47,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Q))
         {
+            //Double speed
             var horizontal = Input.GetAxis("Horizontal");
             var vertical = Input.GetAxis("Vertical");
             var movement = new Vector3(horizontal, 0, vertical);
@@ -57,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            //Normal speed
             var horizontal = Input.GetAxis("Horizontal");
             var vertical = Input.GetAxis("Vertical");
             var movement = new Vector3(horizontal, 0, vertical);
