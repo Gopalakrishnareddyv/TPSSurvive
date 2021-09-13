@@ -20,8 +20,11 @@ public class PlayerMovement : MonoBehaviour
     public GameObject gunText;
     public bool isGun;
     public int bulletCount;
+    public int enemyCount;
     public int ammo;
+    public int refilAmmo;
     public Text ammoText;
+    public Text enemyText;
     public ParticleSystem partSystem;
     Vector3 hitPoint;
     AudioSource audioSource;
@@ -32,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        refilAmmo = ammo;
         instance = this;
         playerAnim = GetComponentInChildren<Animator>();
         character = GetComponent<CharacterController>();
@@ -61,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
             transform.Rotate(Vector3.up, horizontal * playerRotateSpeed);
             character.SimpleMove(transform.forward * vertical * playerForwardSpeed  * Time.deltaTime);
         }
-        transform.position += new Vector3(0, jumpSpeed, 0);
+        //transform.position += new Vector3(0, jumpSpeed, 0);
         jumpTime += Time.deltaTime;
         if (jumpTime >= 2f)
         {
@@ -71,18 +75,17 @@ public class PlayerMovement : MonoBehaviour
                 doublejump = true;
             }
         }
-        if (Input.GetKeyDown(KeyCode.E)&&jump)
+        if (Input.GetKeyDown(KeyCode.E)&&jump&&doublejump)
         { 
             transform.position += new Vector3(0, jumpSpeed, 0);
-            jumpTime = 0f;
-            
+            jumpTime = 0f;            
         }
         if (Input.GetMouseButtonDown(0)&&isGun&&bulletCount>0)
         {
             audioSource.clip = bulletSound;
             audioSource.Play();
             partSystem.Play();
-            bulletCount -= 1;
+            bulletCount --;
             ammoText.text = "Ammos : " + bulletCount;
             FireGun();   
         }
@@ -96,11 +99,17 @@ public class PlayerMovement : MonoBehaviour
             //Debug.Log(hit.collider.gameObject.name);
             if (hit.collider.gameObject.tag == "Enemy"||hit.collider.gameObject.tag=="Monstar")
             {
-               
-                var enemyHealth = hit.collider.gameObject.GetComponent<EnemyHealth>();
-                if (enemyHealth != null)
+                
+                var enemy = hit.collider.gameObject.GetComponent<EnemyHealth>();
+                if (enemy != null)
                 {
-                    enemyHealth.EnemyDamage(1);
+                    
+                    enemy.EnemyDamage(1);
+                    if (enemy.currentEnemyHealth > enemy.enemyHealth)
+                    {
+                        enemyCount++;
+                        enemyText.text = "Enemies : " + enemyCount;
+                    }
                 }
                 GameObject spawn = Pooling.instance.Get("Hit");
                 if (spawn != null)
@@ -125,7 +134,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (other.gameObject.tag == "Ammo")
         {
-            ammo = 50;
+            ammo = refilAmmo;
             bulletCount = ammo;
             ammoText.text="Ammos : "+ammo;
             Destroy(other.gameObject);

@@ -53,7 +53,7 @@ public class EnemyMovement : MonoBehaviour
             var health = PlayerMovement.instance.GetComponent<PlayerHealth>();
             if (health != null)
             {
-                health.Damage(0.1f);
+                health.Damage(1);
             }
         }
     }

@@ -6650,7 +6650,7 @@ GameObject:
   - component: {fileID: 1323659017}
   - component: {fileID: 1323659016}
   m_Layer: 5
-  m_Name: Ammos (1)
+  m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6708,7 +6708,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Health : 50'
+  m_Text: 'Health : 100'
 --- !u!222 &1323659017
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7659,8 +7659,11 @@ MonoBehaviour:
   gunText: {fileID: 162873272}
   isGun: 0
   bulletCount: 0
-  ammo: 0
+  enemyCount: 0
+  ammo: 50
+  refilAmmo: 0
   ammoText: {fileID: 1769745285}
+  enemyText: {fileID: 1377117662}
   partSystem: {fileID: 1926565279}
   bulletSound: {fileID: 8300000, guid: 372dc4e5865867a43af102ad36defdd5, type: 3}
   bulletHitSound: {fileID: 8300000, guid: 23da710140fbab84daccd489122fd8e6, type: 3}
@@ -7694,7 +7697,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f0930e47f0a804091eb911cf441194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 50
+  health: 100
   currentHealth: 0
 --- !u!82 &1489245421
 AudioSource:
