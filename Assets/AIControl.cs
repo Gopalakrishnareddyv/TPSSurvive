@@ -16,12 +16,13 @@ public class AIControl : MonoBehaviour {
 		goalLocations = GameObject.FindGameObjectsWithTag("goal");
 		agent = this.GetComponent<UnityEngine.AI.NavMeshAgent>();
         anim = GetComponent<Animator>();
-        anim.SetBool("isWalking", true);
+        //anim.SetFloat("EnemySpeed",1f);
         PickGoalLocation();
 	}
 
     void PickGoalLocation()
     {
+        Debug.Log(lastGoal);
         lastGoal = agent.destination;
         agent.SetDestination(goalLocations[Random.Range(0, goalLocations.Length)].transform.position);
     }

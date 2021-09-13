@@ -141,10 +141,14 @@ public class PlayerMovement : MonoBehaviour
         }
         if (other.gameObject.tag == "Death")
         {
+            PlayerData.Instance.SetData();
+            PlayerData.Instance.GetData();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         if (other.gameObject.tag == "EndPoint")
         {
+            PlayerData.Instance.SetData();
+            PlayerData.Instance.GetData();
             SceneManager.LoadScene(2);
             Destroy(other.gameObject);
         }
