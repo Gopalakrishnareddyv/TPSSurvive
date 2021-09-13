@@ -12192,7 +12192,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2030449762}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4202e242a5832847a865c97e492ea15, type: 3}
   m_Name: 
@@ -12212,6 +12212,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.76749295, z: 1.4073894}
   m_Center: {x: 0, y: 0.38344273, z: 0.04626465}
+--- !u!114 &2030449767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030449762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 704de572467ce7f448d38209bbf34a92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goals:
+  - {fileID: 1121827350}
+  - {fileID: 1716238615}
+  - {fileID: 1097824559}
+  - {fileID: 1826511170}
+  - {fileID: 1866334512}
+  chasingPoint: 10
 --- !u!4 &2040160206 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 88e35a6d290355d46b6df0c3698f25c4, type: 3}
