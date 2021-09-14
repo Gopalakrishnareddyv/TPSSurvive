@@ -19,7 +19,7 @@ public class PlayerHealth : MonoBehaviour
     public void Damage(float damage)
     {
         currentHealth -= damage;
-        healthText.text = "Helath : " + currentHealth;
+        healthText.text = "Helath : " +Mathf.RoundToInt( currentHealth);
         if (currentHealth <= 0)
         {
             //Debug.Log("Player died");

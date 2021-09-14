@@ -4,14 +4,22 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
+    Animator anim;
     public int enemyHealth;
     public int currentEnemyHealth;
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
     public void EnemyDamage(int damage)
     {
         currentEnemyHealth += damage;
         if (currentEnemyHealth > enemyHealth)
         {
-            this.gameObject.SetActive(false);
+            anim.SetFloat("EnemySpeed", 2);
+            //this.gameObject.SetActive(false);
+            //Destroy(gameObject, 3f);
         }
     }
+    
 }

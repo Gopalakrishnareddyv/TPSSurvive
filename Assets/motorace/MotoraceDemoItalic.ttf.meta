@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 3c2b9e20f4e77034282f513a637a9cdc
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Motorace Demo
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: e095d0c05df279646b694d87922bd6db, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
