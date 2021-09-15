@@ -16,8 +16,8 @@ public class EnemyHealth : MonoBehaviour
         currentEnemyHealth += damage;
         if (currentEnemyHealth > enemyHealth)
         {
-            anim.SetFloat("EnemySpeed", 2);
-            //this.gameObject.SetActive(false);
+            //anim.SetFloat("EnemySpeed", 2);
+            this.gameObject.SetActive(false);
             //Destroy(gameObject, 3f);
         }
     }
