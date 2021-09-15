@@ -67,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
             transform.Rotate(Vector3.up, horizontal * playerRotateSpeed);
             character.SimpleMove(transform.forward * vertical * playerForwardSpeed  * Time.deltaTime);
         }
-        //transform.position += new Vector3(0, jumpSpeed, 0);
+        //jump movement
         jumpTime += Time.deltaTime;
         if (jumpTime >= 2f)
         {
@@ -82,6 +82,7 @@ public class PlayerMovement : MonoBehaviour
             transform.position += new Vector3(0, jumpSpeed, 0);
             jumpTime = 0f;            
         }
+        //Shooting
         if (Input.GetMouseButtonDown(0)&&isGun&&bulletCount>0)
         {
             audioSource.clip = bulletSound;
@@ -127,6 +128,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        //Collecting gun
         if (other.gameObject.tag == "Gun")
         {
             Destroy(other.gameObject);
@@ -134,6 +136,7 @@ public class PlayerMovement : MonoBehaviour
             gun.SetActive(true);
             isGun = true;
         }
+        //Collecting ammos
         if (other.gameObject.tag == "Ammo")
         {
             ammo = refilAmmo;
@@ -141,12 +144,14 @@ public class PlayerMovement : MonoBehaviour
             ammoText.text="Ammos : "+ammo;
             Destroy(other.gameObject);
         }
+        //Death trigger
         if (other.gameObject.tag == "Death")
         {
             PlayerData.Instance.SetData();
             PlayerData.Instance.GetData();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+        //End point to win the game
         if (other.gameObject.tag == "EndPoint")
         {
             PlayerData.Instance.SetData();
