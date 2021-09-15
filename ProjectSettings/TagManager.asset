@@ -11,11 +11,12 @@ TagManager:
   - Hit
   - Monstar
   - EndPoint
+  - goal
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - PostProcessing
   - Water
   - UI
   - 
